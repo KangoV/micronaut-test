@@ -39,26 +39,28 @@ configurations {
 
 dependencies {
 
-	annotationProcessor platform("io.micronaut:micronaut-bom:$micronautVersion")
-    annotationProcessor "io.micronaut:micronaut-graal"
+	annotationProcessor     platform("io.micronaut:micronaut-bom:$micronautVersion")
+    implementation          platform("io.micronaut:micronaut-bom:$micronautVersion")
+	testAnnotationProcessor platform("io.micronaut:micronaut-bom:$micronautVersion")
+	testImplementation      platform("io.micronaut:micronaut-bom:$micronautVersion")
+	
 	annotationProcessor "io.micronaut:micronaut-inject-java"
+    annotationProcessor "io.micronaut:micronaut-graal"
 	annotationProcessor "io.micronaut:micronaut-validation"
-	annotationProcessor "io.micronaut.configuration:micronaut-openapi"
+//	annotationProcessor "io.micronaut.configuration:micronaut-openapi"
 	annotationProcessor "io.micronaut.data:micronaut-data-processor:$micronautDataVersion"
 	annotationProcessor "org.immutables:value:$immutablesVersion"
 	annotationProcessor "org.mapstruct:mapstruct-processor:$mapstructVersion"
     
     compileOnly "com.oracle.substratevm:svm"
 	
-    implementation platform("io.micronaut:micronaut-bom:$micronautVersion")
-	implementation "io.micronaut:micronaut-management"
     implementation "io.micronaut:micronaut-inject"
     implementation "io.micronaut:micronaut-validation"
     implementation "io.micronaut:micronaut-runtime"
     implementation "io.micronaut:micronaut-security-jwt"
     implementation "io.micronaut:micronaut-http-client"
     implementation "io.micronaut:micronaut-http-server-netty"
-    implementation "io.micronaut.configuration:micronaut-hibernate-jpa"
+	implementation "io.micronaut:micronaut-management"
     implementation "io.micronaut.configuration:micronaut-flyway"
     implementation "io.micronaut.data:micronaut-data-hibernate-jpa:$micronautDataVersion", {
         exclude group:'io.micronaut.configuration', module:'micronaut-hibernate-jpa-spring'
@@ -72,12 +74,10 @@ dependencies {
     runtimeOnly "ch.qos.logback:logback-classic:$logbackVersion"
 	runtimeOnly "io.micronaut.configuration:micronaut-jdbc-hikari"
 	
-    testAnnotationProcessor platform("io.micronaut:micronaut-bom:$micronautVersion")
     testAnnotationProcessor "io.micronaut:micronaut-inject-java"
 	testAnnotationProcessor "org.immutables:value:$immutablesVersion"
     testAnnotationProcessor "org.mapstruct:mapstruct-processor:$mapstructVersion"
     
-    testImplementation platform("io.micronaut:micronaut-bom:$micronautVersion")
     testImplementation "org.junit.jupiter:junit-jupiter-api"
     testImplementation "io.micronaut.test:micronaut-test-junit5"
 	testImplementation "org.immutables:value:$immutablesVersion"
