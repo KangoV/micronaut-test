@@ -1,0 +1,145 @@
+plugins {
+    id "net.ltgt.apt-idea" version "0.21"
+    id "net.ltgt.apt-eclipse" version "0.21"
+    id "com.github.johnrengelman.shadow" version "5.0.0"
+	id 'pl.allegro.tech.build.axion-release' version '1.10.0'
+    id "application"
+}
+
+scmVersion {
+	versionCreator System.getenv('USE_BRANCH_VERSION') != null ? 'versionWithBranch' : 'simple'
+	versionIncrementer 'incrementMinor' // default=incrementPatch
+	ignoreUncommittedChanges = false
+	branchVersionIncrementer = [
+	  'hotfix/.*'  : { c -> c.currentVersion.incrementPatchVersion() },
+	  'release/.*' : 'incrementMinorIfNotOnRelease'
+	]
+	hooks {
+		pre 'fileUpdate', [file: 'README.md', pattern: {v, c -> /version: $v/}, replacement: {v, c -> "vers/ion: $v"}]
+		pre 'commit'
+	}
+	localOnly = true
+}
+
+project.version = scmVersion.version
+group "org.belldj"
+
+sourceCompatibility = '11'
+targetCompatibility = '11'
+
+repositories {
+    mavenCentral()
+    maven { url "https://jcenter.bintray.com" }
+}
+
+configurations {
+    // for dependencies that are needed for development only
+    developmentOnly 
+}
+
+dependencies {
+
+	annotationProcessor platform("io.micronaut:micronaut-bom:$micronautVersion")
+    annotationProcessor "io.micronaut:micronaut-graal"
+	annotationProcessor "io.micronaut:micronaut-inject-java"
+	annotationProcessor "io.micronaut:micronaut-validation"
+	annotationProcessor "io.micronaut.configuration:micronaut-openapi"
+	annotationProcessor "io.micronaut.data:micronaut-data-processor:$micronautDataVersion"
+	annotationProcessor "org.immutables:value:$immutablesVersion"
+	annotationProcessor "org.mapstruct:mapstruct-processor:$mapstructVersion"
+    
+    compileOnly "com.oracle.substratevm:svm"
+	
+    implementation platform("io.micronaut:micronaut-bom:$micronautVersion")
+	implementation "io.micronaut:micronaut-management"
+    implementation "io.micronaut:micronaut-inject"
+    implementation "io.micronaut:micronaut-validation"
+    implementation "io.micronaut:micronaut-runtime"
+    implementation "io.micronaut:micronaut-security-jwt"
+    implementation "io.micronaut:micronaut-http-client"
+    implementation "io.micronaut:micronaut-http-server-netty"
+    implementation "io.micronaut.configuration:micronaut-hibernate-jpa"
+    implementation "io.micronaut.configuration:micronaut-flyway"
+    implementation "io.micronaut.data:micronaut-data-hibernate-jpa:$micronautDataVersion", {
+        exclude group:'io.micronaut.configuration', module:'micronaut-hibernate-jpa-spring'
+    }
+	implementation "io.micronaut.data:micronaut-data-tx:$micronautDataVersion"
+    implementation "io.swagger.core.v3:swagger-annotations"
+	implementation "org.immutables:value:$immutablesVersion"
+    implementation "org.mapstruct:mapstruct:$mapstructVersion"
+    
+    runtimeOnly "com.h2database:h2"
+    runtimeOnly "ch.qos.logback:logback-classic:$logbackVersion"
+	runtimeOnly "io.micronaut.configuration:micronaut-jdbc-hikari"
+	
+    testAnnotationProcessor platform("io.micronaut:micronaut-bom:$micronautVersion")
+    testAnnotationProcessor "io.micronaut:micronaut-inject-java"
+	testAnnotationProcessor "org.immutables:value:$immutablesVersion"
+    testAnnotationProcessor "org.mapstruct:mapstruct-processor:$mapstructVersion"
+    
+    testImplementation platform("io.micronaut:micronaut-bom:$micronautVersion")
+    testImplementation "org.junit.jupiter:junit-jupiter-api"
+    testImplementation "io.micronaut.test:micronaut-test-junit5"
+	testImplementation "org.immutables:value:$immutablesVersion"
+	testImplementation "org.mapstruct:mapstruct:$mapstructVersion"
+    testImplementation "org.assertj:assertj-core:$assertjVersion"
+    
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
+    
+}
+
+test.classpath += configurations.developmentOnly
+
+mainClassName = "org.belldj.Application"
+
+// use JUnit 5 platform
+test {
+    useJUnitPlatform()
+}
+
+shadowJar {
+    mergeServiceFiles()
+}
+
+run.classpath += configurations.developmentOnly
+run.jvmArgs('-noverify', '-XX:TieredStopAtLevel=1', '-Dcom.sun.management.jmxremote')
+
+tasks.withType(JavaCompile){
+    options.encoding = "UTF-8"
+    options.compilerArgs.add('-parameters')
+}
+
+jar {
+  manifest {
+    attributes 'Implementation-Title': project.name, 'Implementation-Version': project.version
+  }
+}
+
+task sourceJar(type: Jar, dependsOn: classes) {
+  from sourceSets.main.allJava
+  classifier = 'sources'
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+  from javadoc.destinationDir
+  classifier = 'javadoc'
+}
+
+javadoc {
+  source = sourceSets.main.allJava
+  classpath = configurations.compileClasspath
+  options {
+    setMemberLevel JavadocMemberLevel.PUBLIC
+    setAuthor true
+    links "https://docs.oracle.com/en/java/javase/11/docs/api/"
+    failOnError = false
+  }
+}
+
+artifacts {
+  archives jar
+  archives sourceJar
+  archives javadocJar
+}
+
+
