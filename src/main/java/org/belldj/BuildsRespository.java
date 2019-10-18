@@ -26,7 +26,7 @@ public class BuildsRespository {
 	@Inject
 	private BuildsDao buildsDao;
 	
-//	@Transactional
+	@Transactional
 	public BuildD save(BuildD build) {
 		BuildE saved = buildsDao
 			.findById(build.getId())
