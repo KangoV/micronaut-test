@@ -35,9 +35,10 @@ public class BuildsRespository {
 		return mapper.map(saved);
 	}
 	
-	public Iterable<BuildD> all() {
-		return StreamSupport
-			.stream(buildsDao.findAll().spliterator(), false)
+	public List<BuildD> all() {
+		return buildsDao
+			.findAll()
+			.stream()
 			.map(mapper::map).collect(Collectors.toList());
 	}
 }
