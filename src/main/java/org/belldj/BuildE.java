@@ -8,7 +8,6 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
@@ -23,22 +22,22 @@ public final class BuildE {
   @Column(name = "name")
   private String name;
 
-  @ElementCollection(fetch = FetchType.EAGER)
+  @ElementCollection(fetch = FetchType.LAZY)
   @CollectionTable(name = "build_dependency", joinColumns = {
       @JoinColumn(name = "build_id", referencedColumnName = "id")})
   @Column(name = "component_name")
   private Set<String> dependencies;
 
-  @ElementCollection(fetch = FetchType.EAGER)
-  @CollectionTable(name = "build_label_mapping", joinColumns = {
+  @ElementCollection(fetch = FetchType.LAZY)
+  @CollectionTable(name = "build_label", joinColumns = {
       @JoinColumn(name = "build_id", referencedColumnName = "id")})
   @MapKeyEnumerated(EnumType.STRING)
   @MapKeyColumn(name = "label_type")
   @Column(name = "label_name")
   private Map<LabelType, String> labels;
 
-  @ElementCollection(fetch = FetchType.EAGER)
-  @CollectionTable(name = "build_property_mapping", joinColumns = {
+  @ElementCollection(fetch = FetchType.LAZY)
+  @CollectionTable(name = "build_property", joinColumns = {
       @JoinColumn(name = "build_id", referencedColumnName = "id")})
   @MapKeyColumn(name = "property_key")
   @Column(name = "property_name")
