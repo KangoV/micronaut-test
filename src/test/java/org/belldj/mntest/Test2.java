@@ -1,16 +1,15 @@
-package org.belldj;
+package org.belldj.mntest;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.belldj.mntest.TFoobarValue.builder;
 import static org.mapstruct.factory.Mappers.getMapper;
-import static org.belldj.TFoobarValue.builder;
-
-import org.belldj.Immutables.Mymapper;
+import org.belldj.mntest.Immutables.Mymapper;
 import org.junit.jupiter.api.Test;
 
-class Test3 {
+class Test2 {
 
 	@Test
-	void testMappingToCustomBuilder() {
+	void testMappingImmutable() {
 
 		var mapper = getMapper(Mymapper.class);
 

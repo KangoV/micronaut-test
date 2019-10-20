@@ -1,15 +1,11 @@
-package org.belldj;
+package org.belldj.mntest;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
 import org.immutables.value.Value;
 import org.junit.jupiter.api.Test;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
-import org.belldj.TSimpleValue4;
 
 class Test4 {
 

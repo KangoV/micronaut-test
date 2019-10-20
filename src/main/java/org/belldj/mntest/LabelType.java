@@ -1,4 +1,4 @@
-package org.belldj;
+package org.belldj.mntest;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

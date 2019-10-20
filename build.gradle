@@ -47,7 +47,7 @@ dependencies {
 	annotationProcessor "io.micronaut:micronaut-inject-java"
     annotationProcessor "io.micronaut:micronaut-graal"
 	annotationProcessor "io.micronaut:micronaut-validation"
-//	annotationProcessor "io.micronaut.configuration:micronaut-openapi"
+	annotationProcessor "io.micronaut.configuration:micronaut-openapi"
 	annotationProcessor "io.micronaut.data:micronaut-data-processor:$micronautDataVersion"
 	annotationProcessor "org.immutables:value:$immutablesVersion"
 	annotationProcessor "org.mapstruct:mapstruct-processor:$mapstructVersion"
@@ -68,7 +68,8 @@ dependencies {
 	implementation "io.micronaut.data:micronaut-data-tx:$micronautDataVersion"
     implementation "io.swagger.core.v3:swagger-annotations"
 	implementation "org.immutables:value:$immutablesVersion"
-    implementation "org.mapstruct:mapstruct:$mapstructVersion"
+    implementation "org.mapstruct:mapstruct:$mapstructVersion" 
+    implementation "com.fasterxml.uuid:java-uuid-generator:$uuidGeneratorVersion"
     
     runtimeOnly "com.h2database:h2"
     runtimeOnly "ch.qos.logback:logback-classic:$logbackVersion"
@@ -90,7 +91,7 @@ dependencies {
 
 test.classpath += configurations.developmentOnly
 
-mainClassName = "org.belldj.Application"
+mainClassName = "org.belldj.mntest.Application"
 
 // use JUnit 5 platform
 test {

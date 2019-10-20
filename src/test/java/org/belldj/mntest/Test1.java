@@ -1,7 +1,6 @@
-package org.belldj;
+package org.belldj.mntest;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
 import org.junit.jupiter.api.Test;
 
 class Test1 {
