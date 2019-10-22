@@ -1,0 +1,14 @@
+package org.belldj.mntest.domain;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Target;
+import org.immutables.value.Value;
+
+@Target(ElementType.TYPE)
+@Value.Style(
+    typeAbstract = "*Def",
+    typeImmutable = "*",
+    visibility = Value.Style.ImplementationVisibility.PUBLIC)
+public @interface Event {
+  // empty
+}

@@ -83,7 +83,7 @@ public class BuildsController {
   @Post(uri = "/", consumes = MediaType.APPLICATION_JSON)
   public HttpResponse<RegisteredBuildT> add(@Body @Nonnull @NotNull final RegisterBuildCommandInT cmd) {
     var build = service.create(cmd);
-    return HttpResponse.ok(mapper.map(build));
+    return HttpResponse.created(mapper.map(build));
   }
 
   /**

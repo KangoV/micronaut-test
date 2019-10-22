@@ -15,17 +15,10 @@ public class BuildService implements BuildsApi {
   }
 
   public static final BuildsServiceMappers mapper = Mappers.getMapper(BuildsServiceMappers.class);
-
   private final BuildsRespository repository;
 
   public BuildService(BuildsRespository respository) {
     this.repository = respository;
-  }
-
-  @Transactional
-  @Override
-  public Build save(Build build) {
-    return repository.save(build);
   }
 
   @Override
@@ -36,7 +29,7 @@ public class BuildService implements BuildsApi {
   @Transactional
   @Override
   public Build create(RegisterBuildCommand command) {
-    return repository.save(mapper.map(command));
+    return repository.create(mapper.map(command));
   }
 
 }

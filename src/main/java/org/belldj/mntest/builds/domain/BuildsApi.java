@@ -14,7 +14,6 @@ public interface BuildsApi {
     Map<LabelType, String> getLabels();
   }
 
-  Build save(Build build);
   Build create(RegisterBuildCommand build);
   List<Build> findAll();
 
