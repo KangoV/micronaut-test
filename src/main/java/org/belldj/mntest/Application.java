@@ -46,7 +46,7 @@ public class Application {
     if (LOG.isInfoEnabled()) {
       LOG.info("Populating data");
     }
-    var b = new BuildE();
+    BuildE b = new BuildE();
     b.setId(Generators.timeBasedGenerator().generate());
     b.setName("shuffle-bots");
     buildsDao.save(b);

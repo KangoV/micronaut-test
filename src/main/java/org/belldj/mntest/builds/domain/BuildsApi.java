@@ -15,6 +15,7 @@ public interface BuildsApi {
   }
 
   Build create(RegisterBuildCommand build);
+  
   List<Build> findAll();
 
 }

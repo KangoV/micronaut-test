@@ -3,9 +3,17 @@ plugins {
     id "net.ltgt.apt-eclipse" version "0.21"
     id "com.github.johnrengelman.shadow" version "5.0.0"
 	id 'pl.allegro.tech.build.axion-release' version '1.10.0'
+	id "com.palantir.graal" version "0.6.0-27-ge8430f6" 
     id "application"
 }
 
+graal {
+	graalVersion '19.2.1'
+	mainClass 'org.belldj.mntest.Application'
+	outputName 'mntest'
+	option '--allow-incomplete-classpath'
+}
+  
 scmVersion {
 	versionCreator System.getenv('USE_BRANCH_VERSION') != null ? 'versionWithBranch' : 'simple'
 	versionIncrementer 'incrementMinor' // default=incrementPatch
@@ -24,8 +32,8 @@ scmVersion {
 project.version = scmVersion.version
 group "org.belldj"
 
-sourceCompatibility = '11'
-targetCompatibility = '11'
+sourceCompatibility = '1.8'
+targetCompatibility = '1.9'
 
 repositories {
     mavenCentral()
@@ -45,14 +53,14 @@ dependencies {
 	testImplementation      platform("io.micronaut:micronaut-bom:$micronautVersion")
 	
 	annotationProcessor "io.micronaut:micronaut-inject-java"
-    annotationProcessor "io.micronaut:micronaut-graal"
+//    annotationProcessor "io.micronaut:micronaut-graal"
 	annotationProcessor "io.micronaut:micronaut-validation"
 	annotationProcessor "io.micronaut.configuration:micronaut-openapi"
 	annotationProcessor "io.micronaut.data:micronaut-data-processor:$micronautDataVersion"
 	annotationProcessor "org.immutables:value:$immutablesVersion"
 	annotationProcessor "org.mapstruct:mapstruct-processor:$mapstructVersion"
     
-    compileOnly "com.oracle.substratevm:svm"
+//    compileOnly "com.oracle.substratevm:svm"
 	
     implementation "io.micronaut:micronaut-inject"
     implementation "io.micronaut:micronaut-validation"

@@ -10,7 +10,7 @@ class Test5 {
 	@Test
 	void testJsonToCustomBuilder() throws Exception {
 
-		var src = RooBarValue.builder()
+		RooBarValue src = RooBarValue.builder()
 				.id(1)
 				.foo(1)
 				.bar("darren")
@@ -21,13 +21,13 @@ class Test5 {
 		// notice that we are adding in the support for Optional among others
 		// Micronaut will have already done this.
 
-		var objectMapper = new ObjectMapper().registerModule(new Jdk8Module());
-		var json = objectMapper.writeValueAsString(src);
+		ObjectMapper objectMapper = new ObjectMapper().registerModule(new Jdk8Module());
+		String json = objectMapper.writeValueAsString(src);
 
 
 		// now lets convert it back again
 
-		var obj = objectMapper.readValue(json, RooBarValue.class);
+		Object obj = objectMapper.readValue(json, RooBarValue.class);
 
 		assertThat(obj).isEqualTo(src);
 

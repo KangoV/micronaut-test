@@ -57,7 +57,7 @@ public class BuildsController {
   }
 
   @Mapper
-  interface BuildsMapper {
+  public interface BuildsMapper {
     @Mapping(target = "putLabels", ignore = true)
     @Mapping(target = "putAllLabels", ignore = true)
     @Mapping(target = "putProperties", ignore = true)
@@ -82,7 +82,7 @@ public class BuildsController {
   @Tag(name = "builds")
   @Post(uri = "/", consumes = MediaType.APPLICATION_JSON)
   public HttpResponse<RegisteredBuildT> add(@Body @Nonnull @NotNull final RegisterBuildCommandInT cmd) {
-    var build = service.create(cmd);
+    Build build = service.create(cmd);
     return HttpResponse.created(mapper.map(build));
   }
 
@@ -94,7 +94,7 @@ public class BuildsController {
   @Tag(name = "builds")
   @Get(uri = "/", produces = MediaType.APPLICATION_JSON)
   public HttpResponse<List<RegisteredBuildT>> all() {
-    var result = service.findAll().stream().map(mapper::map).collect(Collectors.toList());
+    List<RegisteredBuildT> result = service.findAll().stream().map(mapper::map).collect(Collectors.toList());
     return HttpResponse.ok(result);
   }
 

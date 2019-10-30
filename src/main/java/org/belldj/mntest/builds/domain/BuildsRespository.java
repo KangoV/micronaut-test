@@ -38,8 +38,8 @@ public class BuildsRespository {
     if (buildsDao.existsById(build.getId())) {
       throw new RuntimeException(String.format("Build with id \"%s\" already exists"));
     }
-    var builde = buildsDao.save(mapper.map(build));
-    var result = mapper.map(builde);
+    BuildE builde = buildsDao.save(mapper.map(build));
+    Build result = mapper.map(builde);
     eventBus.publishEvent(BuildCreatedEvent.of(build));
     return result;
   }

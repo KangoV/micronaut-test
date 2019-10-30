@@ -11,9 +11,9 @@ class Test3 {
 	@Test
 	void testMappingToCustomBuilder() {
 
-		var mapper = getMapper(Mymapper.class);
+		Mymapper mapper = getMapper(Mymapper.class);
 
-		var src = builder()
+		TFoobarValue src = builder()
 				.id(1)
 				.foo(1)
 				.bar("darren")
@@ -21,7 +21,7 @@ class Test3 {
 				.addCrux(1)
 				.build();
 
-		var target = mapper.fromFoo2Roo(src);
+		RooBarValue target = mapper.fromFoo2Roo(src);
 
 		assertThat(target).isNotNull();
 

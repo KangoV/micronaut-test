@@ -14,7 +14,7 @@ class Test1 {
 	@Test
 	void testImmutables() {
 
-		var fooBar1 = TFoobarValue.builder()
+		TFoobarValue fooBar1 = TFoobarValue.builder()
 			.id(1)
 			.foo(1)
 			.bar("darren")
@@ -24,7 +24,7 @@ class Test1 {
 
 		assertThat(fooBar1).isEqualTo(TFoobarValue.copyOf(fooBar1));
 
-		var fooBar2 = TFoobarValue.builder()
+		TFoobarValue fooBar2 = TFoobarValue.builder()
 			.from(fooBar1)
 			.build();
 

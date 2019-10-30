@@ -31,12 +31,12 @@ class Test4 {
 
 		// first convert to a json string....
 
-		var objectMapper = new ObjectMapper();
-		var json = objectMapper.writeValueAsString(src);
+		ObjectMapper objectMapper = new ObjectMapper();
+		String json = objectMapper.writeValueAsString(src);
 
 		// now lets convert it back again
 
-		var obj = objectMapper.readValue(json, TSimpleValue4.class);
+		TSimpleValue4 obj = objectMapper.readValue(json, TSimpleValue4.class);
 
 		assertThat(obj).isEqualTo(src);
 

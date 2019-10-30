@@ -19,7 +19,8 @@ public class EventListeners {
   @Transactional
   @EventListener
   public void onBuildCreated(BuildCreatedEvent event) {
-     /*
+
+	 /*
       * 1. lookup component via name
       * 2. if not found then add it
       * 3. create a new version of the component
