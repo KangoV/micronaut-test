@@ -4,6 +4,7 @@ import java.util.List;
 import javax.inject.Singleton;
 import javax.transaction.Transactional;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 @Singleton
@@ -11,6 +12,8 @@ public class BuildService implements BuildsApi {
 
   @Mapper
   public interface BuildsServiceMappers {
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "createdDate", ignore = true)
     Build map(RegisterBuildCommand command);
   }
 

@@ -35,10 +35,10 @@ public class BuildsController {
 
   @Transport
   @Value.Immutable
-  @JsonSerialize(as = RegisterBuildCommandInT.class)
-  @JsonDeserialize(as = RegisterBuildCommandInT.class)
+  @JsonSerialize(as = RegisterBuildCommandT.class)
+  @JsonDeserialize(as = RegisterBuildCommandT.class)
   @Schema(name = "RegisterBuildCommand", description = "The build to be registered")
-  public interface RegisterBuildCommandIn extends BuildsApi.RegisterBuildCommand {
+  public interface RegisterBuildCommandSpec extends BuildsApi.RegisterBuildCommand {
     // empty
   }
 
@@ -47,7 +47,7 @@ public class BuildsController {
   @JsonSerialize(as = RegisteredBuildT.class)
   @JsonDeserialize(as = RegisteredBuildT.class)
   @Schema(name = "RegisteredBuild", description = "The registered Build")
-  public interface RegisteredBuild {
+  public interface RegisteredBuildSpec {
     UUID getId();
     String getName();
     Set<String> getDependencies();
@@ -81,7 +81,7 @@ public class BuildsController {
    */
   @Tag(name = "builds")
   @Post(uri = "/", consumes = MediaType.APPLICATION_JSON)
-  public HttpResponse<RegisteredBuildT> add(@Body @Nonnull @NotNull final RegisterBuildCommandInT cmd) {
+  public HttpResponse<RegisteredBuildT> add(@Body @Nonnull @NotNull final RegisterBuildCommandT cmd) {
     Build build = service.create(cmd);
     return HttpResponse.created(mapper.map(build));
   }

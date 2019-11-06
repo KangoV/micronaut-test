@@ -2,6 +2,7 @@ package org.belldj.mntest.builds.domain;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
@@ -67,9 +68,9 @@ public final class Build {
   private Build(Build.Builder b) {
     this.id = (b.id == null) ? Generators.timeBasedGenerator().generate() : b.id;
     this.name = b.name;
-    this.dependencies = (b.dependencies == null) ? Set.of() : b.dependencies;
-    this.properties = (b.properties == null) ? Map.of() : b.properties;
-    this.labels = (b.labels == null) ? Map.of() : b.labels;
+    this.dependencies = (b.dependencies == null) ? new HashSet<>() : b.dependencies;
+    this.properties = (b.properties == null) ? new HashMap<>() : b.properties;
+    this.labels = (b.labels == null) ? new HashMap<>() : b.labels;
     this.createdDate = (b.createdDate == null) ? LocalDateTime.now() : b.createdDate;
   }
 
