@@ -6,10 +6,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
-import javax.annotation.Nonnull;
 import javax.validation.constraints.NotNull;
-
 import org.belldj.mntest.LabelType;
 import org.belldj.mntest.builds.domain.Build;
 import org.belldj.mntest.builds.domain.BuildService;
@@ -19,10 +16,8 @@ import org.immutables.value.Value;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
-
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Body;

@@ -15,7 +15,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.MapKeyEnumerated;
 import javax.persistence.Table;
-
 import org.belldj.mntest.LabelType;
 
 @Entity
@@ -29,20 +28,20 @@ public final class BuildE {
   @Column(name = "name")
   private String name;
 
-  @ElementCollection(fetch = FetchType.LAZY)
-  @CollectionTable(name = "build_dependency", joinColumns = { 
+  @ElementCollection(fetch = FetchType.EAGER)
+  @CollectionTable(name = "build_dependency", joinColumns = {
 		  @JoinColumn(name = "build_id", referencedColumnName = "id") })
   @Column(name = "component_name")
   private Set<String> dependencies;
 
-  @ElementCollection(fetch = FetchType.LAZY)
+  @ElementCollection(fetch = FetchType.EAGER)
   @CollectionTable(name = "build_label", joinColumns = { @JoinColumn(name = "build_id", referencedColumnName = "id") })
   @MapKeyEnumerated(EnumType.STRING)
   @MapKeyColumn(name = "label_type")
   @Column(name = "label_name")
   private Map<LabelType, String> labels;
 
-  @ElementCollection(fetch = FetchType.LAZY)
+  @ElementCollection(fetch = FetchType.EAGER)
   @CollectionTable(name = "build_property", joinColumns = { @JoinColumn(name = "build_id", referencedColumnName = "id") })
   @MapKeyColumn(name = "property_key")
   @Column(name = "property_name")

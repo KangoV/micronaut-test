@@ -6,9 +6,9 @@ import org.immutables.value.Value;
 
 @Target(ElementType.TYPE)
 @Value.Style(
-    typeAbstract = "*Def",
-    typeImmutable = "*",
-    visibility = Value.Style.ImplementationVisibility.PUBLIC)
+  typeAbstract = "*Spec",
+  typeImmutable = "*",
+  visibility = Value.Style.ImplementationVisibility.PUBLIC)
 public @interface Event {
   // empty
 }

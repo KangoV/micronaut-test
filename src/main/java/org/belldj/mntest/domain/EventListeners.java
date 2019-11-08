@@ -2,7 +2,6 @@ package org.belldj.mntest.domain;
 
 import javax.inject.Singleton;
 import javax.transaction.Transactional;
-import org.belldj.mntest.builds.domain.BuildCreatedEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import io.micronaut.runtime.event.annotation.EventListener;
@@ -18,7 +17,7 @@ public class EventListeners {
 
   @Transactional
   @EventListener
-  public void onBuildCreated(BuildCreatedEvent event) {
+  public void onBuildCreated(BuildCreatedEventSpec event) {
 
 	 /*
       * 1. lookup component via name

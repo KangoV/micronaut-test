@@ -7,6 +7,7 @@ import javax.inject.Singleton;
 import javax.transaction.Transactional;
 import org.belldj.mntest.builds.infrastructure.BuildE;
 import org.belldj.mntest.builds.infrastructure.BuildsDao;
+import org.belldj.mntest.domain.BuildCreatedEvent;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
