@@ -11,9 +11,9 @@ import io.micronaut.data.repository.CrudRepository;
 public interface BuildsDao extends CrudRepository<BuildE, UUID> {
 
   @Override
-  @Join(value = "dependencies")
-  @Join(value = "properties")
-  @Join(value = "labels")
+  @Join(value = "dependencies", type = Join.Type.FETCH)
+  @Join(value = "properties", type = Join.Type.FETCH)
+  @Join(value = "labels", type = Join.Type.FETCH)
   @Query(value = "from BuildE as build left join build.dependencies left join build.properties left join build.labels")
   List<BuildE> findAll(); // empty
 

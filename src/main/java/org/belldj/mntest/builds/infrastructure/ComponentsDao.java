@@ -8,10 +8,10 @@ import io.micronaut.data.annotation.Repository;
 import io.micronaut.data.repository.CrudRepository;
 
 @Repository
-public interface ComponentsDefDao extends CrudRepository<ComponentDefE, UUID> {
+public interface ComponentsDao extends CrudRepository<ComponentE, UUID> {
 
   @Override
-  List<ComponentDefE> findAll(); // empty
+  List<ComponentE> findAll(); // empty
 
 }
 

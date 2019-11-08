@@ -14,12 +14,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.MapKeyEnumerated;
+import javax.persistence.Table;
+
 import org.belldj.mntest.LabelType;
 
 @Entity
+@Table(name="componentdefinition")
 public final class ComponentDefE {
 
   @Id
+  @Column(columnDefinition = "uuid")
   private UUID id;
 
   @Column(name = "name")

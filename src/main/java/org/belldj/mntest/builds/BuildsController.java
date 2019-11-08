@@ -6,8 +6,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
 import javax.annotation.Nonnull;
 import javax.validation.constraints.NotNull;
+
 import org.belldj.mntest.LabelType;
 import org.belldj.mntest.builds.domain.Build;
 import org.belldj.mntest.builds.domain.BuildService;
@@ -17,8 +19,10 @@ import org.immutables.value.Value;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
+
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Body;
@@ -29,7 +33,8 @@ import io.micronaut.validation.Validated;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Controller("/builds")
+@Controller(value = "/builds", produces = MediaType.APPLICATION_JSON)
+@Tag(name = "builds")
 @Validated
 public class BuildsController {
 
@@ -79,9 +84,8 @@ public class BuildsController {
    * @param build The build to register
    * @return The build that was saved
    */
-  @Tag(name = "builds")
-  @Post(uri = "/", consumes = MediaType.APPLICATION_JSON)
-  public HttpResponse<RegisteredBuildT> add(@Body @Nonnull @NotNull final RegisterBuildCommandT cmd) {
+  @Post(uri = "/")
+  public HttpResponse<RegisteredBuildT> add(@Body @NotNull final RegisterBuildCommandT cmd) {
     Build build = service.create(cmd);
     return HttpResponse.created(mapper.map(build));
   }
@@ -91,8 +95,7 @@ public class BuildsController {
    * 
    * @return all registered builds
    */
-  @Tag(name = "builds")
-  @Get(uri = "/", produces = MediaType.APPLICATION_JSON)
+  @Get(uri = "/")
   public HttpResponse<List<RegisteredBuildT>> all() {
     List<RegisteredBuildT> result = service.findAll().stream().map(mapper::map).collect(Collectors.toList());
     return HttpResponse.ok(result);

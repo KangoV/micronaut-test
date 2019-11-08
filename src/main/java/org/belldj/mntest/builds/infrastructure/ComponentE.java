@@ -15,35 +15,39 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.MapKeyEnumerated;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import org.belldj.mntest.LabelType;
 
 @Entity
+@Table(name="component")
 public final class ComponentE {
 
 	@Id
+	@Column(columnDefinition = "uuid")
 	private UUID id;
 
 	@Column(name = "name")
 	private String name;
 
-	@JoinColumn(name = "component_def_id")
+	@JoinColumn(name = "componentdef_id")
 	@ManyToOne(fetch = FetchType.EAGER, targetEntity = ComponentDefE.class)
 	private UUID componentDefId;
 
-	@ElementCollection(fetch = FetchType.EAGER)
-	@CollectionTable(name = "build_dependency", joinColumns = { @JoinColumn(name = "build_id", referencedColumnName = "id") })
-	@Column(name = "component_name")
-	private Set<String> dependencies;
+	@JoinColumn(name="componentdef_dependency_id")
+	@OneToMany(fetch = FetchType.EAGER)
+	private Set<ComponentDefE> dependencies;
 
 	@ElementCollection(fetch = FetchType.EAGER)
-	@CollectionTable(name = "build_label", joinColumns = { @JoinColumn(name = "build_id", referencedColumnName = "id") })
+	@CollectionTable(name = "component_label", joinColumns = { @JoinColumn(name = "build_id", referencedColumnName = "id") })
 	@MapKeyEnumerated(EnumType.STRING)
 	@MapKeyColumn(name = "label_type")
 	@Column(name = "label_name")
 	private Map<LabelType, String> labels;
 
 	@ElementCollection(fetch = FetchType.EAGER)
-	@CollectionTable(name = "build_property", joinColumns = { @JoinColumn(name = "build_id", referencedColumnName = "id") })
+	@CollectionTable(name = "component_property", joinColumns = { @JoinColumn(name = "build_id", referencedColumnName = "id") })
 	@MapKeyColumn(name = "property_key")
 	@Column(name = "property_name")
 	private Map<String, String> properties;
@@ -83,11 +87,11 @@ public final class ComponentE {
 		this.name = name;
 	}
 
-	public Set<String> getDependencies() {
+	public Set<ComponentDefE> getDependencies() {
 		return dependencies;
 	}
 
-	public void setDependencies(Set<String> dependencies) {
+	public void setDependencies(Set<ComponentDefE> dependencies) {
 		this.dependencies = dependencies;
 	}
 

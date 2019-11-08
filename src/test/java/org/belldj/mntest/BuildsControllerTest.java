@@ -1,10 +1,11 @@
-package org.belldj.mntest.builds;
+package org.belldj.mntest;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 import org.assertj.core.api.Assertions;
+import org.belldj.mntest.builds.RegisterBuildCommandT;
 import org.junit.jupiter.api.Test;
 
 import io.micronaut.http.annotation.Get;
@@ -15,9 +16,9 @@ import io.micronaut.test.annotation.MicronautTest;
 class BuildsControllerTest {
 
 	@Client(value = "/builds")
-	interface BuildsClient {
+	public interface BuildsClient {
 	    @Get(value = "/")
-	    List<RegisterBuildCommandInT> findAll();
+	    List<RegisterBuildCommandT> findAll();
 	}
 	
 	@Inject
@@ -25,7 +26,7 @@ class BuildsControllerTest {
 	
 	@Test
 	void testFindAll() {
-		List<RegisterBuildCommandInT> user = client.findAll();
+		List<RegisterBuildCommandT> user = client.findAll();
 	    Assertions.assertThat(user).isNotNull();	
 	}
 
