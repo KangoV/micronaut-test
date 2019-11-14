@@ -17,6 +17,7 @@ import javax.persistence.MapKeyEnumerated;
 import javax.persistence.Table;
 
 import org.belldj.mntest.LabelType;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name="componentdefinition")
@@ -30,6 +31,7 @@ public final class ComponentDefE {
   private String name;
 
   @Column(name = "created")
+  @CreationTimestamp
   private LocalDateTime createdDate;
 
   public LocalDateTime getCreatedDate() {

@@ -55,7 +55,7 @@ jpa:
     - 'org.belldj' 
     properties:
       hibernate:
-        show_sql: true
+        show_sql: false
         bytecode:
           provider: none
         hbm2ddl:

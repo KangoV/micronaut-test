@@ -19,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.belldj.mntest.LabelType;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name="component")
@@ -53,6 +54,7 @@ public final class ComponentE {
 	private Map<String, String> properties;
 
 	@Column(name = "created")
+	@CreationTimestamp
 	private LocalDateTime createdDate;
 
 	public LocalDateTime getCreatedDate() {

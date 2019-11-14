@@ -16,6 +16,7 @@ import javax.persistence.MapKeyColumn;
 import javax.persistence.MapKeyEnumerated;
 import javax.persistence.Table;
 import org.belldj.mntest.LabelType;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name="build")
@@ -48,6 +49,7 @@ public final class BuildE {
   private Map<String, String> properties;
 
   @Column(name = "created")
+  @CreationTimestamp
   private LocalDateTime createdDate;
 
   public LocalDateTime getCreatedDate() {
