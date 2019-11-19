@@ -2,6 +2,9 @@
 # Created by https://www.gitignore.io/api/maven,gradle,eclipse,intellij
 # Edit at https://www.gitignore.io/?templates=maven,gradle,eclipse,intellij
 
+### Docker ###
+postgres-data/
+
 ### Eclipse ###
 .metadata
 bin/

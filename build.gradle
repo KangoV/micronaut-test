@@ -11,7 +11,13 @@ graal {
 	graalVersion '19.2.1'
 	mainClass 'org.belldj.mntest.Application'
 	outputName 'mntest'
+	option '-H:+TraceClassInitialization'
+	option '-H:+ReportExceptionStackTraces'	
 	option '--allow-incomplete-classpath'
+	option '--initialize-at-build-time=org.h2.Driver'
+	option '--initialize-at-build-time=org.postgresql.Driver'
+	option '--initialize-at-build-time=org.postgresql.util.SharedTimer'
+	option '--report-unsupported-elements-at-runtime'
 }
   
 scmVersion {
@@ -79,8 +85,8 @@ dependencies {
     implementation "org.mapstruct:mapstruct:$mapstructVersion" 
     implementation "com.fasterxml.uuid:java-uuid-generator:$uuidGeneratorVersion"
     
-    runtimeOnly "com.h2database:h2"
-    runtimeOnly "ch.qos.logback:logback-classic:$logbackVersion"
+	runtimeOnly "org.postgresql:postgresql:$postgresqlDriverVersion"
+	runtimeOnly "ch.qos.logback:logback-classic:$logbackVersion"
 	runtimeOnly "io.micronaut.configuration:micronaut-jdbc-hikari"
 	
     testAnnotationProcessor "io.micronaut:micronaut-inject-java"
@@ -92,7 +98,9 @@ dependencies {
 	testImplementation "org.immutables:value:$immutablesVersion"
 	testImplementation "org.mapstruct:mapstruct:$mapstructVersion"
     testImplementation "org.assertj:assertj-core:$assertjVersion"
-    
+	testImplementation "org.testcontainers:testcontainers:$testContainersVersion"
+	testImplementation "org.testcontainers:postgresql:$testContainersVersion"
+	
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
     
 }
@@ -124,14 +132,9 @@ jar {
   }
 }
 
-task sourceJar(type: Jar, dependsOn: classes) {
-  from sourceSets.main.allJava
-  classifier = 'sources'
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-  from javadoc.destinationDir
-  classifier = 'javadoc'
+java {
+	withJavadocJar()
+	withSourcesJar()
 }
 
 javadoc {
@@ -145,10 +148,5 @@ javadoc {
   }
 }
 
-artifacts {
-  archives jar
-  archives sourceJar
-  archives javadocJar
-}
 
 
