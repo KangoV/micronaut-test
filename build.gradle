@@ -100,6 +100,7 @@ dependencies {
     testImplementation "org.assertj:assertj-core:$assertjVersion"
 	testImplementation "org.testcontainers:testcontainers:$testContainersVersion"
 	testImplementation "org.testcontainers:postgresql:$testContainersVersion"
+	testImplementation "org.testcontainers:junit-jupiter:$testContainersVersion"
 	
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
     

@@ -12,3 +12,7 @@ jpa:
     properties:
       hibernate:
         show_sql: true
+flyway:
+  datasources: 
+    default: 
+      locations: classpath:db/migrations

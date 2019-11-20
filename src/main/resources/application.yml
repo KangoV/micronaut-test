@@ -56,7 +56,7 @@ jpa:
     properties:
       hibernate:
         schema_name: pandora
-        show_sql: false
+        show_sql: true
         bytecode:
           provider: none
         hbm2ddl:
