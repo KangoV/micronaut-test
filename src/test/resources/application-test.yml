@@ -1,7 +1,7 @@
 ---
 datasources:
   default:
-    url: jdbc:tc:postgresql:11.5-alpine://localhost/test?TC_DAEMON=true
+    url: jdbc:tc:postgresql:10-alpine://localhost/test?TC_DAEMON=true
     driverClassName: org.testcontainers.jdbc.ContainerDatabaseDriver
     username: sa
     password: ''

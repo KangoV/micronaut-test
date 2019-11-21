@@ -10,7 +10,7 @@ services:
     depends_on:
     - "db"
   db:
-    image: "postgres:11.5-alpine"
+    image: "postgres:10-alpine"
     container_name: "my_postgres"
     environment:
       - POSTGRES_DB=test
