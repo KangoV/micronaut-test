@@ -1,9 +1,8 @@
-package org.belldj.mntest;
+package org.belldj.mntest.immutables;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.belldj.mntest.TFoobarValue.builder;
 import static org.mapstruct.factory.Mappers.getMapper;
-import org.belldj.mntest.Immutables.Mymapper;
+import org.belldj.mntest.immutables.Immutables.Mymapper;
 import org.junit.jupiter.api.Test;
 
 class Test3 {
@@ -13,7 +12,7 @@ class Test3 {
 
 		Mymapper mapper = getMapper(Mymapper.class);
 
-		TFoobarValue src = builder()
+		TFoobarValue src = TFoobarValue.builder()
 				.id(1)
 				.foo(1)
 				.bar("darren")

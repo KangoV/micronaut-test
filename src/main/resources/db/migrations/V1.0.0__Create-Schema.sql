@@ -15,3 +15,7 @@ alter table if exists component_label add constraint FKFK_cl_componentdefinition
 alter table if exists component_property add constraint FK_cp_componentdefinition_id foreign key (build_id) references component;
 --alter table if exists componentdefinition add constraint FK_cd_component_id foreign key (componentdef_dependency_id) references component;
 
+
+create table part (id uuid not null, name varchar(255), attributes text, created timestamp, primary key (id));
+
+

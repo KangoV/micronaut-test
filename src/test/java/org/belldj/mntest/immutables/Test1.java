@@ -1,4 +1,4 @@
-package org.belldj.mntest;
+package org.belldj.mntest.immutables;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package org.belldj.mntest;
+package org.belldj.mntest.immutables;
 
 import java.util.ArrayList;
 import java.util.HashSet;

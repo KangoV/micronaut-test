@@ -3,7 +3,7 @@ package org.belldj.mntest;
 import java.util.List;
 import javax.inject.Inject;
 import org.assertj.core.api.Assertions;
-import org.belldj.mntest.builds.RegisterBuildCommandT;
+import org.belldj.mntest.builds.web.RegisterBuildCommandT;
 import org.junit.jupiter.api.Test;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.client.annotation.Client;

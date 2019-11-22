@@ -1,4 +1,4 @@
-package org.belldj.mntest.builds;
+package org.belldj.mntest.builds.web;
 
 import java.time.LocalDateTime;
 import java.util.List;

@@ -1,4 +1,4 @@
-package org.belldj.mntest;
+package org.belldj.mntest.immutables;
 
 import java.util.List;
 import java.util.Optional;
