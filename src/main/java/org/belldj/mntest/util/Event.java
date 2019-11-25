@@ -1,4 +1,4 @@
-package org.belldj.mntest.domain;
+package org.belldj.mntest.util;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;

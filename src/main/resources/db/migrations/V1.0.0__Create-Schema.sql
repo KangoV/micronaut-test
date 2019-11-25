@@ -17,5 +17,7 @@ alter table if exists component_property add constraint FK_cp_componentdefinitio
 
 
 create table part (id uuid not null, name varchar(255), attributes text, created timestamp, primary key (id));
+create table partref (id uuid not null, subtype varchar(20), part_id uuid, primary key(id)); 
+alter table if exists partref add constraint FK_pr_part_id foreign key (part_id) references part;
 
 

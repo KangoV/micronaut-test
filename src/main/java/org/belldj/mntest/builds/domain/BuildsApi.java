@@ -3,7 +3,7 @@ package org.belldj.mntest.builds.domain;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import org.belldj.mntest.LabelType;
+import org.belldj.mntest.shared.LabelType;
 
 public interface BuildsApi {
 

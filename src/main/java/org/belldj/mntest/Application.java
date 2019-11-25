@@ -14,18 +14,17 @@ import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.info.License;
 
-@OpenAPIDefinition(
-    info = @Info(
-        title = "Micronaut Test Apoplication",
-        description = "A small (real world) application for testing as many features as possible",
-        version = "0.0",
-        license = @License(
-            name = "Apache 2.0",
-            url = "https://www.apache.org/licenses/LICENSE-2.0"),
-        contact = @Contact(
-            url = "https://github.com/KangoV/micronaut-test",
-            name = "darren",
-            email = "djb.bell@gmail.com")))
+@OpenAPIDefinition(info = @Info(
+    title = "Micronaut Test Apoplication",
+    description = "A small (real world) application for testing as many features as possible",
+    version = "0.0",
+    license = @License(
+        name = "Apache 2.0",
+        url = "https://www.apache.org/licenses/LICENSE-2.0"),
+    contact = @Contact(
+        url = "https://github.com/KangoV/micronaut-test",
+        name = "darren",
+        email = "djb.bell@gmail.com")))
 public class Application {
 
   private static final Logger LOG = LoggerFactory.getLogger(Application.class);
@@ -51,5 +50,19 @@ public class Application {
     b.setName("shuffle-bots");
     buildsDao.save(b);
   }
+
+  // @Factory
+  // @Replaces(ObjectMapperFactory.class)
+  // static class CustomObjectMapperFactory extends ObjectMapperFactory {
+  // @Override
+  // @Singleton
+  // @Replaces(ObjectMapper.class)
+  // public ObjectMapper objectMapper(JacksonConfiguration jacksonConfiguration, JsonFactory
+  // jsonFactory) {
+  // final ObjectMapper mapper = super.objectMapper(jacksonConfiguration, jsonFactory);
+  // mapper.registerModule(new JacksonModule());
+  // return mapper;
+  // }
+  // }
 
 }

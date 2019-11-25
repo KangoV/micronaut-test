@@ -14,7 +14,8 @@ public class PartService implements PartApi {
   public interface PartServiceMappers {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdDate", ignore = true)
-    Part map(AddPartCommand command);
+    @Mapping(target = "type", source = "subType.type")
+    Part map(PartAddCommand command);
   }
 
   public static final PartServiceMappers mapper = Mappers.getMapper(PartServiceMappers.class);
@@ -31,8 +32,9 @@ public class PartService implements PartApi {
 
   @Transactional
   @Override
-  public Part create(AddPartCommand command) {
-    return repository.create(mapper.map(command));
+  public Part create(PartAddCommand command) {
+    var part = mapper.map(command);
+    return repository.create(part);
   }
 
 }

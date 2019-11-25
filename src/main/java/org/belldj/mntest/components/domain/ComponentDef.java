@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
-import org.belldj.mntest.LabelType;
+import org.belldj.mntest.shared.LabelType;
 import com.fasterxml.uuid.Generators;
 
 public final class ComponentDef {

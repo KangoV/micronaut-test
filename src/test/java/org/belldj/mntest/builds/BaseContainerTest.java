@@ -1,4 +1,4 @@
-package org.belldj.mntest;
+package org.belldj.mntest.builds;
 
 import java.util.HashMap;
 import java.util.Map;

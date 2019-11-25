@@ -4,17 +4,39 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import org.belldj.mntest.parts.domain.Part;
+import org.belldj.mntest.parts.web.PartAddCommandT;
 import org.belldj.mntest.parts.web.PartController;
 import org.belldj.mntest.parts.web.PartT;
+import org.belldj.mntest.shared.SubType;
+import org.belldj.mntest.shared.Type;
+import org.belldj.mntest.util.JacksonModule;
 import org.junit.jupiter.api.Test;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 class PartTest {
 
+  private UUID PART_ID = UUID.randomUUID();
+  private LocalDateTime NOW = LocalDateTime.now();
+
+
+  @Test
+  void test_AddPartCommand() {
+    var part = PartAddCommandT.builder()
+      .subType(SubType.SYMBOL)
+      .name("Cherry")
+      .attributes("{\"name\":\"main\"}")
+      .build();
+    assertThat(part).isNotNull();
+  }
+
   @Test
   void testPart() {
-    PartT part = PartT.builder()
-      .id(UUID.randomUUID())
-      .name("darren")
+    var part = PartT.builder()
+      .id(PART_ID)
+      .type(Type.ITEM)
+      .subType(SubType.SYMBOL)
+      .name("Cherry")
+      .attributes("{\"name\":\"main\"}")
       .createdDate(LocalDateTime.now())
       .build();
     assertThat(part).isNotNull();
@@ -23,16 +45,50 @@ class PartTest {
   @Test
   void test_map_from_Part_to_PartT() {
 
-    Part part = Part.builder()
-      .id(UUID.randomUUID())
+    var part = Part.builder()
+      .id(PART_ID)
+      .type(Type.ITEM)
+      .subType(SubType.SYMBOL)
       .name("darren")
-      .createdDate(LocalDateTime.now())
+      .attributes("{\"name\":\"main\"}")
+      .createdDate(NOW)
       .build();
     assertThat(part).isNotNull();
 
-    PartT part_t = PartController.mapper.map(part);
-    assertThat(part_t).isNotNull();
+    var part_t = PartController.mapper.map(part);
+    assertThat(part_t).isEqualTo(PartT.builder()
+        .id(PART_ID)
+        .type(Type.ITEM)
+        .subType(SubType.SYMBOL)
+        .name("darren")
+        .attributes("{\"name\":\"main\"}")
+        .createdDate(NOW).build());
 
+  }
+
+  @Test
+  void test_deserialise_into_PartT() throws Exception {
+    var part_json =
+        "{" +
+            "\"subType\": \"SYMBOL\"," +
+            "\"name\": \"Cherry\"," +
+            "\"attributes\": {" +
+            "\"code\":\"CHRY\"" +
+            "}" +
+        "}";
+    var mapper = new ObjectMapper();
+
+    // this is required to deserialize into a raw string
+    mapper.registerModule(new JacksonModule());
+
+    var part_t = mapper.readValue(part_json, PartAddCommandT.class);
+    var expected_part_t =
+        PartAddCommandT.builder()
+            .subType(SubType.SYMBOL)
+            .name("Cherry")
+            .attributes("{\"code\":\"CHRY\"}")
+        .build();
+    assertThat(part_t).isEqualTo(expected_part_t);
   }
 
 }

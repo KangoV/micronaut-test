@@ -17,8 +17,7 @@ import javax.persistence.MapKeyColumn;
 import javax.persistence.MapKeyEnumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.belldj.mntest.LabelType;
+import org.belldj.mntest.shared.LabelType;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity

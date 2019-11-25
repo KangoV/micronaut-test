@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.transaction.Transactional;
-import org.belldj.mntest.domain.PartCreatedEvent;
 import org.belldj.mntest.parts.infrastructure.PartDao;
 import org.belldj.mntest.parts.infrastructure.PartE;
 import org.mapstruct.Mapper;

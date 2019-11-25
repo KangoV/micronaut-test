@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import org.belldj.mntest.shared.SubType;
+import org.belldj.mntest.shared.Type;
 import com.fasterxml.uuid.Generators;
 
 public final class Part {
@@ -14,6 +16,8 @@ public final class Part {
 
   public static final class Builder {
     private UUID id;
+    private Type type;
+    private SubType subType;
     private String name;
     private String attributes;
     private Set<UUID> elements;
@@ -21,6 +25,16 @@ public final class Part {
 
     public Part.Builder id(UUID id) {
       this.id = id;
+      return this;
+    }
+
+    public Part.Builder type(Type type) {
+      this.type = type;
+      return this;
+    }
+
+    public Part.Builder subType(SubType subType) {
+      this.subType = subType;
       return this;
     }
 
@@ -50,6 +64,8 @@ public final class Part {
   }
 
   private final UUID id;
+  private final Type type;
+  private final SubType subType;
   private final String name;
   private final String attributes;
   private final Set<UUID> elements;
@@ -57,6 +73,8 @@ public final class Part {
 
   private Part(Part.Builder b) {
     this.id = (b.id == null) ? Generators.timeBasedGenerator().generate() : b.id;
+    this.type = b.type;
+    this.subType = b.subType;
     this.name = b.name;
     this.attributes = b.attributes;
     this.createdDate = (b.createdDate == null) ? LocalDateTime.now() : b.createdDate;
@@ -65,6 +83,14 @@ public final class Part {
 
   public UUID getId() {
     return this.id;
+  }
+
+  public Type getType() {
+    return type;
+  }
+
+  public SubType getSubType() {
+    return subType;
   }
 
   public String getName() {
