@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
-@Table(name="build")
+@Table(name = "part")
 public final class PartE {
 
   @Id

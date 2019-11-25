@@ -24,13 +24,14 @@ public class PartRespository {
   }
 
   private static final PartRepositoryMapper mapper = Mappers.getMapper(PartRepositoryMapper.class);
+
   private final PartDao partDao;
   private final ApplicationEventPublisher eventBus;
 
   @SuppressWarnings("hiding")
   @Inject
-  public PartRespository(PartDao buildsDao, ApplicationEventPublisher eventBus) {
-    this.partDao = buildsDao;
+  public PartRespository(PartDao partDao, ApplicationEventPublisher eventBus) {
+    this.partDao = partDao;
     this.eventBus = eventBus;
   }
 
@@ -39,8 +40,8 @@ public class PartRespository {
     if (partDao.existsById(part.getId())) {
       throw new RuntimeException(String.format("Build with id \"%s\" already exists"));
     }
-    PartE builde = partDao.save(mapper.map(part));
-    Part result = mapper.map(builde);
+    PartE parte = partDao.save(mapper.map(part));
+    Part result = mapper.map(parte);
     eventBus.publishEvent(PartCreatedEvent.of(part));
     return result;
   }

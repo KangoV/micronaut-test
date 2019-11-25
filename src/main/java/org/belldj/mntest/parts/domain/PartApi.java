@@ -9,12 +9,9 @@ public interface PartApi {
   public interface AddPartCommand {
     String getName();
     String getAttributes();
-
     Set<UUID> getElements();
   }
-
   Part create(AddPartCommand build);
-
   List<Part> findAll();
 
 }

@@ -11,13 +11,13 @@ import org.mapstruct.factory.Mappers;
 public class PartService implements PartApi {
 
   @Mapper
-  public interface BuildsServiceMappers {
+  public interface PartServiceMappers {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdDate", ignore = true)
     Part map(AddPartCommand command);
   }
 
-  public static final BuildsServiceMappers mapper = Mappers.getMapper(BuildsServiceMappers.class);
+  public static final PartServiceMappers mapper = Mappers.getMapper(PartServiceMappers.class);
   private final PartRespository repository;
 
   public PartService(PartRespository respository) {
