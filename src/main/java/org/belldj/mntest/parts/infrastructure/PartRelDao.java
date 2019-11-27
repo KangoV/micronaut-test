@@ -7,10 +7,10 @@ import io.micronaut.data.annotation.Repository;
 import io.micronaut.data.repository.CrudRepository;
 
 @Repository
-public interface PartRefDao extends CrudRepository<PartRefE, UUID> {
+public interface PartRelDao extends CrudRepository<PartRelE, UUID> {
 
   @Query(value = "from PartRef as partref where partref.partId = ?")
-  List<PartRefE> find(UUID uuid); // empty
+  List<PartRelE> find(UUID uuid); // empty
 
 }
 

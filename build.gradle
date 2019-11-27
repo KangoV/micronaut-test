@@ -1,23 +1,10 @@
 plugins {
     id "net.ltgt.apt-idea" version "0.21"
     id "net.ltgt.apt-eclipse" version "0.21"
-    id "com.github.johnrengelman.shadow" version "5.0.0"
-	id 'pl.allegro.tech.build.axion-release' version '1.10.0'
+    id "com.github.johnrengelman.shadow" version "5.2.0"
+	id 'pl.allegro.tech.build.axion-release' version '1.10.2'
 	id "com.palantir.graal" version "0.6.0-40-gcf1a84c" 
     id "application"
-}
-
-graal {
-	graalVersion '19.3'
-	mainClass 'org.belldj.mntest.Application'
-	outputName 'mntest'
-	option '-H:+TraceClassInitialization'
-	option '-H:+ReportExceptionStackTraces'	
-	option '--allow-incomplete-classpath'
-	option '--initialize-at-build-time=org.h2.Driver'
-	option '--initialize-at-build-time=org.postgresql.Driver'
-	option '--initialize-at-build-time=org.postgresql.util.SharedTimer'
-	option '--report-unsupported-elements-at-runtime'
 }
   
 scmVersion {
@@ -38,11 +25,12 @@ scmVersion {
 project.version = scmVersion.version
 group "org.belldj"
 
-sourceCompatibility = '11'
-targetCompatibility = '11'
+sourceCompatibility = '13'
+targetCompatibility = '13'
 
 repositories {
     mavenCentral()
+	maven { url "https://dl.bintray.com/micronaut/core-releases-local" }
     maven { url "https://jcenter.bintray.com" }
 }
 
@@ -62,7 +50,7 @@ dependencies {
     annotationProcessor "io.micronaut:micronaut-graal"
 	annotationProcessor "io.micronaut:micronaut-validation"
 	annotationProcessor "io.micronaut.configuration:micronaut-openapi"
-	annotationProcessor "io.micronaut.data:micronaut-data-processor:$micronautDataVersion"
+	annotationProcessor "io.micronaut.data:micronaut-data-processor"
 	annotationProcessor "org.immutables:value:$immutablesVersion"
 	annotationProcessor "org.mapstruct:mapstruct-processor:$mapstructVersion"
     
@@ -76,10 +64,10 @@ dependencies {
     implementation "io.micronaut:micronaut-http-server-netty"
 	implementation "io.micronaut:micronaut-management"
     implementation "io.micronaut.configuration:micronaut-flyway"
-    implementation "io.micronaut.data:micronaut-data-hibernate-jpa:$micronautDataVersion", {
+    implementation "io.micronaut.data:micronaut-data-hibernate-jpa", {
         exclude group:'io.micronaut.configuration', module:'micronaut-hibernate-jpa-spring'
     }
-	implementation "io.micronaut.data:micronaut-data-tx:$micronautDataVersion"
+	implementation "io.micronaut.data:micronaut-data-tx"
     implementation "io.swagger.core.v3:swagger-annotations"
 	implementation "org.immutables:value:$immutablesVersion"
     implementation "org.mapstruct:mapstruct:$mapstructVersion" 
@@ -111,20 +99,20 @@ test.classpath += configurations.developmentOnly
 mainClassName = "org.belldj.mntest.Application"
 
 // use JUnit 5 platform
-test {
-    useJUnitPlatform()
+test { 
+	useJUnitPlatform()
+	jvmArgs '--enable-preview'
 }
 
-shadowJar {
-    mergeServiceFiles()
-}
+shadowJar { mergeServiceFiles() }
 
 run.classpath += configurations.developmentOnly
-run.jvmArgs('-noverify', '-XX:TieredStopAtLevel=1', '-Dcom.sun.management.jmxremote')
+run.jvmArgs('-noverify', '-XX:TieredStopAtLevel=1', '-Dcom.sun.management.jmxremote', '--enable-preview')
 
 tasks.withType(JavaCompile){
-    options.encoding = "UTF-8"
-    options.compilerArgs.add('-parameters')
+  options.encoding = "UTF-8"
+  options.compilerArgs.add('-parameters')
+  options.compilerArgs.add('--enable-preview')
 }
 
 jar {
@@ -147,6 +135,19 @@ javadoc {
     links "https://docs.oracle.com/en/java/javase/8/docs/api/"
     failOnError = false
   }
+}
+
+graal {
+	graalVersion '19.3'
+	mainClass 'org.belldj.mntest.Application'
+	outputName 'mntest'
+	option '-H:+TraceClassInitialization'
+	option '-H:+ReportExceptionStackTraces'	
+	option '--allow-incomplete-classpath'
+	option '--initialize-at-build-time=org.h2.Driver'
+	option '--initialize-at-build-time=org.postgresql.Driver'
+	option '--initialize-at-build-time=org.postgresql.util.SharedTimer'
+	option '--report-unsupported-elements-at-runtime'
 }
 
 

@@ -66,16 +66,20 @@ class PartTest {
 
   }
 
+  @SuppressWarnings("preview")
   @Test
   void test_deserialise_into_PartT() throws Exception {
-    var part_json =
-        "{" +
-            "\"subType\": \"SYMBOL\"," +
-            "\"name\": \"Cherry\"," +
-            "\"attributes\": {" +
-            "\"code\":\"CHRY\"" +
-            "}" +
-        "}";
+
+    var part_json = """
+        {
+          "subType": "SYMBOL",
+          "name": "Cherry",
+          "attributes": {
+            "code": "CHRY"
+          }
+        }
+        """;
+
     var mapper = new ObjectMapper();
 
     // this is required to deserialize into a raw string

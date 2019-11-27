@@ -1,6 +1,7 @@
 package org.belldj.mntest.parts.infrastructure;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import javax.persistence.CollectionTable;
@@ -12,6 +13,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.belldj.mntest.shared.SubType;
@@ -45,28 +47,41 @@ public final class PartE {
   private String attributes;
 
   @ElementCollection(fetch = FetchType.EAGER)
-  @CollectionTable(name = "part_element",
-      joinColumns = {@JoinColumn(name = "part_id", referencedColumnName = "id")})
+  @CollectionTable(name = "part_element", joinColumns = {@JoinColumn(name = "part_id", referencedColumnName = "id")})
   @Column(name = "element_ref_id")
   private Set<UUID> elements;
 
   @OneToMany(mappedBy = "partId")
-  private Set<PartRefE> relations;
+  private Set<PartRelE> relations;
 
-  public Set<PartRefE> getRelations() {
+  @ElementCollection(fetch = FetchType.EAGER)
+  @CollectionTable(name = "part_property", joinColumns = {@JoinColumn(name = "part_id", referencedColumnName = "id")})
+  @MapKeyColumn(name = "property_key")
+  @Column(name = "property_name")
+  private Map<String, String> properties;
+
+  /*
+   * ### ### getters/ setters ###
+   */
+
+  public Set<PartRelE> getRelations() {
     return relations;
   }
 
-  public void setRelations(Set<PartRefE> relations) {
+  public void setRelations(Set<PartRelE> relations) {
     this.relations = relations;
-  }
-
-  public String getAttributes() {
-    return attributes;
   }
 
   public Set<UUID> getElements() {
     return this.elements;
+  }
+
+  public void setElements(Set<UUID> elements) {
+    this.elements = elements;
+  }
+
+  public String getAttributes() {
+    return attributes;
   }
 
   public void setAttributes(String attributes) {
@@ -113,8 +128,12 @@ public final class PartE {
     this.subType = subType;
   }
 
-  public void setElements(Set<UUID> elements) {
-    this.elements = elements;
+  public Map<String, String> getProperties() {
+    return properties;
+  }
+
+  public void setProperties(Map<String, String> properties) {
+    this.properties = properties;
   }
 
 }

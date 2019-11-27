@@ -16,18 +16,17 @@ import io.micronaut.context.event.ApplicationEventPublisher;
 public class PartRespository {
 
   @Mapper
-  interface PartRepositoryMapper {
+  public interface PartRepositoryMapper {
     Part  map(PartE src);
     PartE map(Part src);
     PartE map(Part src, @MappingTarget PartE target);
   }
 
-  private static final PartRepositoryMapper mapper = Mappers.getMapper(PartRepositoryMapper.class);
+  public static final PartRepositoryMapper mapper = Mappers.getMapper(PartRepositoryMapper.class);
 
   private final PartDao partDao;
   private final ApplicationEventPublisher eventBus;
 
-  @SuppressWarnings("hiding")
   @Inject
   public PartRespository(PartDao partDao, ApplicationEventPublisher eventBus) {
     this.partDao = partDao;
@@ -37,10 +36,10 @@ public class PartRespository {
   @Transactional
   public Part create(Part part) {
     if (partDao.existsById(part.getId())) {
-      throw new RuntimeException(String.format("Build with id \"%s\" already exists"));
+      throw new RuntimeException(String.format("Part with id \"%s\" already exists", part.getId()));
     }
-    PartE parte = partDao.save(mapper.map(part));
-    Part result = mapper.map(parte);
+    PartE part_e = partDao.save(mapper.map(part));
+    Part result = mapper.map(part_e);
     eventBus.publishEvent(PartCreatedEvent.of(part));
     return result;
   }
