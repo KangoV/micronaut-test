@@ -1,8 +1,6 @@
 package org.belldj.mntest;
 
 import javax.transaction.Transactional;
-import org.belldj.mntest.builds.infrastructure.BuildE;
-import org.belldj.mntest.builds.infrastructure.BuildsDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.fasterxml.uuid.Generators;
@@ -33,36 +31,9 @@ public class Application {
     Micronaut.run(Application.class);
   }
 
-  private final BuildsDao buildsDao;
-
-  public Application(BuildsDao buildsDao) {
-    this.buildsDao = buildsDao;
-  }
-
   @EventListener
   @Transactional
   void init(StartupEvent event) {
-    if (LOG.isInfoEnabled()) {
-      LOG.info("Populating data");
-    }
-    BuildE b = new BuildE();
-    b.setId(Generators.timeBasedGenerator().generate());
-    b.setName("shuffle-bots");
-    buildsDao.save(b);
   }
-
-  // @Factory
-  // @Replaces(ObjectMapperFactory.class)
-  // static class CustomObjectMapperFactory extends ObjectMapperFactory {
-  // @Override
-  // @Singleton
-  // @Replaces(ObjectMapper.class)
-  // public ObjectMapper objectMapper(JacksonConfiguration jacksonConfiguration, JsonFactory
-  // jsonFactory) {
-  // final ObjectMapper mapper = super.objectMapper(jacksonConfiguration, jsonFactory);
-  // mapper.registerModule(new JacksonModule());
-  // return mapper;
-  // }
-  // }
 
 }

@@ -7,6 +7,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
+import io.micronaut.context.event.ApplicationEventPublisher;
+
 @Singleton
 public class PartService implements PartApi {
 
@@ -20,9 +22,11 @@ public class PartService implements PartApi {
 
   public static final PartServiceMappers mapper = Mappers.getMapper(PartServiceMappers.class);
   private final PartRespository repository;
+	private ApplicationEventPublisher publisher;
 
-  public PartService(PartRespository respository) {
+	public PartService(PartRespository respository, ApplicationEventPublisher publisher) {
     this.repository = respository;
+		this.publisher = publisher;
   }
 
   @Override
@@ -34,7 +38,9 @@ public class PartService implements PartApi {
   @Override
   public Part create(PartAddCommand command) {
     var part = mapper.map(command);
-    return repository.create(part);
+	part = repository.create(part);
+	publisher.publishEvent(PartCreatedEvent.of(part));
+	return part;
   }
 
 }
