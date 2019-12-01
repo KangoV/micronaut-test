@@ -8,7 +8,7 @@ import org.immutables.value.Value;
 
 @Event
 @Value.Immutable(builder = false)
-public interface PartCreatedEventSpec {
+public interface PartCreatedEventSpec { 
   @Value.Parameter(order = 1)
   Part getPart();
 }

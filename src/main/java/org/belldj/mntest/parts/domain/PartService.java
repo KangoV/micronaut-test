@@ -1,8 +1,10 @@
 package org.belldj.mntest.parts.domain;
 
 import java.util.List;
+
 import javax.inject.Singleton;
 import javax.transaction.Transactional;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
