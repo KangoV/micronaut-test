@@ -39,10 +39,10 @@ public class PartRespository {
   @Transactional
   public Part create(Part part) {
     if (partDao.existsById(part.getId())) {
-      throw new RuntimeException(String.format("Part with id \"%s\" already exists", part.getId()));
+      throw new PartException(String.format("Part with id \"%s\" already exists", part.getId()));
     }
-    PartE part_e = partDao.save(mapper.map(part));
-    Part result = mapper.map(part_e);
+    var parte = partDao.save(mapper.map(part));
+    var result = mapper.map(parte);
     eventBus.publishEvent(PartCreatedEvent.of(part));
     return result;
   }

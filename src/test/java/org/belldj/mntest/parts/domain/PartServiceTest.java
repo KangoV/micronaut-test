@@ -1,4 +1,4 @@
-package org.belldj.mntest.parts;
+package org.belldj.mntest.parts.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

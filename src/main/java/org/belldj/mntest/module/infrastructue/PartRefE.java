@@ -1,4 +1,4 @@
-package org.belldj.mntest.parts.infrastructure;
+package org.belldj.mntest.module.infrastructue;
 
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -7,44 +7,45 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import org.belldj.mntest.shared.SubType;
+import org.belldj.mntest.parts.infrastructure.PartE;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
-@Table(name = "partrel")
-public final class PartRelE {
+@Table(name = "partref")
+public final class PartRefE {
 
   @Id
   @Column(columnDefinition = "uuid", nullable = false, updatable = false)
   private UUID id;
 
-  @Column(name = "subtype", nullable = false, updatable = false)
-  @Enumerated(EnumType.STRING)
-  private SubType subType;
+  @OneToOne(targetEntity = PartE.class)
+  @JoinColumn(name = "module_id", referencedColumnName = "id")
+  private UUID moduleId;
 
   @OneToOne(targetEntity = PartE.class)
   @JoinColumn(name = "part_id", referencedColumnName = "id")
   private UUID partId;
 
-  @Column(name = "created", nullable = false, updatable = false)
-  @CreationTimestamp
-  private LocalDateTime createdDate;
+  @Column(name = "data", nullable = false)
+  private String attributes;
 
   @ElementCollection(fetch = FetchType.EAGER)
   @CollectionTable(
-    name = "partrel_property",
-    joinColumns = {@JoinColumn(name = "partrel_id", referencedColumnName = "id")})
+    name = "partref_property", 
+    joinColumns = { @JoinColumn(name = "partref_id", referencedColumnName = "id") })
   @MapKeyColumn(name = "property_key")
   @Column(name = "property_name")
   private Map<String, String> properties;
+
+  @Column(name = "created", nullable = false, updatable = false)
+  @CreationTimestamp
+  private LocalDateTime createdDate;
 
   public UUID getId() {
     return id;
@@ -52,14 +53,6 @@ public final class PartRelE {
 
   public void setId(UUID id) {
     this.id = id;
-  }
-
-  public SubType getSubType() {
-    return subType;
-  }
-
-  public void setSubType(SubType subType) {
-    this.subType = subType;
   }
 
   public LocalDateTime getCreatedDate() {
@@ -76,6 +69,14 @@ public final class PartRelE {
 
   public void setPartId(UUID partId) {
     this.partId = partId;
+  }
+
+  public UUID getModuleId() {
+    return moduleId;
+  }
+
+  public void setModuleId(UUID moduleId) {
+    this.moduleId = moduleId;
   }
 
   public Map<String, String> getProperties() {

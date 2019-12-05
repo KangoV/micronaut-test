@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.belldj.mntest.module.infrastructue.PartRefE;
 import org.belldj.mntest.shared.SubType;
 import org.belldj.mntest.shared.Type;
 import org.hibernate.annotations.CreationTimestamp;
@@ -51,9 +52,6 @@ public final class PartE {
   @Column(name = "element_ref_id")
   private Set<UUID> elements;
 
-  @OneToMany(mappedBy = "partId")
-  private Set<PartRelE> relations;
-
   @ElementCollection(fetch = FetchType.EAGER)
   @CollectionTable(name = "part_property", joinColumns = {@JoinColumn(name = "part_id", referencedColumnName = "id")})
   @MapKeyColumn(name = "property_key")
@@ -63,14 +61,6 @@ public final class PartE {
   /*
    * ### ### getters/ setters ###
    */
-
-  public Set<PartRelE> getRelations() {
-    return relations;
-  }
-
-  public void setRelations(Set<PartRelE> relations) {
-    this.relations = relations;
-  }
 
   public Set<UUID> getElements() {
     return this.elements;

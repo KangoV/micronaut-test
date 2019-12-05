@@ -14,10 +14,6 @@ public class EventListeners {
 
   private static final Logger log = LoggerFactory.getLogger(EventListeners.class);
 
-  public EventListeners() {
-    // TODO store the Component service
-  }
-
 	@Transactional
 	@EventListener
 	public void onPartCreated(PartCreatedEventSpec event) {

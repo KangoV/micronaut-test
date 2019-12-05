@@ -1,9 +1,10 @@
 package org.belldj.mntest;
 
 import javax.transaction.Transactional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.fasterxml.uuid.Generators;
+
 import io.micronaut.context.event.StartupEvent;
 import io.micronaut.runtime.Micronaut;
 import io.micronaut.runtime.event.annotation.EventListener;
@@ -34,6 +35,7 @@ public class Application {
   @EventListener
   @Transactional
   void init(StartupEvent event) {
+	  LOG.info("Init processed");
   }
 
 }

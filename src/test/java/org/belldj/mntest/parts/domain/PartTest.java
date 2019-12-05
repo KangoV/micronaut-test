@@ -1,4 +1,4 @@
-package org.belldj.mntest.parts;
+package org.belldj.mntest.parts.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import java.time.LocalDateTime;
@@ -18,15 +18,26 @@ class PartTest {
   private UUID PART_ID = UUID.randomUUID();
   private LocalDateTime NOW = LocalDateTime.now();
 
+  private static final String DATA =
+    """
+    {
+      "name": "main"
+    }
+    """;
 
+  
+  @SuppressWarnings("preview")
   @Test
   void test_AddPartCommand() {
+
     var part = PartAddCommandT.builder()
       .subType(SubType.SYMBOL)
       .name("Cherry")
-      .attributes("{\"name\":\"main\"}")
+      .attributes(DATA)
       .build();
+    
     assertThat(part).isNotNull();
+    
   }
 
   @Test
@@ -36,7 +47,7 @@ class PartTest {
       .type(Type.ITEM)
       .subType(SubType.SYMBOL)
       .name("Cherry")
-      .attributes("{\"name\":\"main\"}")
+      .attributes(DATA)
       .createdDate(LocalDateTime.now())
       .build();
     assertThat(part).isNotNull();
@@ -50,18 +61,19 @@ class PartTest {
       .type(Type.ITEM)
       .subType(SubType.SYMBOL)
       .name("darren")
-      .attributes("{\"name\":\"main\"}")
+      .attributes(DATA)
       .createdDate(NOW)
       .build();
     assertThat(part).isNotNull();
 
     var part_t = PartController.mapper.map(part);
+    
     assertThat(part_t).isEqualTo(PartT.builder()
         .id(PART_ID)
         .type(Type.ITEM)
         .subType(SubType.SYMBOL)
         .name("darren")
-        .attributes("{\"name\":\"main\"}")
+        .attributes(DATA)
         .createdDate(NOW).build());
 
   }
@@ -90,9 +102,11 @@ class PartTest {
         PartAddCommandT.builder()
             .subType(SubType.SYMBOL)
             .name("Cherry")
-            .attributes("{\"code\":\"CHRY\"}")
+            .attributes(DATA)
         .build();
+    
     assertThat(part_t).isEqualTo(expected_part_t);
+    
   }
 
 }
