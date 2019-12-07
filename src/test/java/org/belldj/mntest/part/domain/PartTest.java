@@ -1,14 +1,14 @@
-package org.belldj.mntest.parts.domain;
+package org.belldj.mntest.part.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import java.time.LocalDateTime;
 import java.util.UUID;
-import org.belldj.mntest.parts.domain.Part;
-import org.belldj.mntest.parts.web.PartAddCommandT;
-import org.belldj.mntest.parts.web.PartController;
-import org.belldj.mntest.parts.web.PartT;
-import org.belldj.mntest.shared.SubType;
+import org.belldj.mntest.part.domain.Part;
+import org.belldj.mntest.part.web.PartAddCommandT;
+import org.belldj.mntest.part.web.PartController;
+import org.belldj.mntest.part.web.PartT;
 import org.belldj.mntest.shared.Type;
+import org.belldj.mntest.shared.Category;
 import org.belldj.mntest.util.JacksonModule;
 import org.junit.jupiter.api.Test;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,22 +18,19 @@ class PartTest {
   private UUID PART_ID = UUID.randomUUID();
   private LocalDateTime NOW = LocalDateTime.now();
 
+  @SuppressWarnings("preview")
   private static final String DATA =
     """
-    {
-      "name": "main"
-    }
-    """;
+    {"code":"CHRY"}""";
 
   
-  @SuppressWarnings("preview")
   @Test
   void test_AddPartCommand() {
 
     var part = PartAddCommandT.builder()
-      .subType(SubType.SYMBOL)
+      .type(Type.SYMBOL)
       .name("Cherry")
-      .attributes(DATA)
+      .data(DATA)
       .build();
     
     assertThat(part).isNotNull();
@@ -44,10 +41,10 @@ class PartTest {
   void testPart() {
     var part = PartT.builder()
       .id(PART_ID)
-      .type(Type.ITEM)
-      .subType(SubType.SYMBOL)
+      .category(Category.ITEM)
+      .type(Type.SYMBOL)
       .name("Cherry")
-      .attributes(DATA)
+      .data(DATA)
       .createdDate(LocalDateTime.now())
       .build();
     assertThat(part).isNotNull();
@@ -58,10 +55,10 @@ class PartTest {
 
     var part = Part.builder()
       .id(PART_ID)
-      .type(Type.ITEM)
-      .subType(SubType.SYMBOL)
+      .category(Category.ITEM)
+      .type(Type.SYMBOL)
       .name("darren")
-      .attributes(DATA)
+      .data(DATA)
       .createdDate(NOW)
       .build();
     assertThat(part).isNotNull();
@@ -69,12 +66,12 @@ class PartTest {
     var part_t = PartController.mapper.map(part);
     
     assertThat(part_t).isEqualTo(PartT.builder()
-        .id(PART_ID)
-        .type(Type.ITEM)
-        .subType(SubType.SYMBOL)
-        .name("darren")
-        .attributes(DATA)
-        .createdDate(NOW).build());
+      .id(PART_ID)
+      .category(Category.ITEM)
+      .type(Type.SYMBOL)
+      .name("darren")
+      .data(DATA)
+      .createdDate(NOW).build());
 
   }
 
@@ -84,9 +81,9 @@ class PartTest {
 
     var part_json = """
         {
-          "subType": "SYMBOL",
+          "type": "SYMBOL",
           "name": "Cherry",
-          "attributes": {
+          "data": {
             "code": "CHRY"
           }
         }
@@ -100,9 +97,9 @@ class PartTest {
     var part_t = mapper.readValue(part_json, PartAddCommandT.class);
     var expected_part_t =
         PartAddCommandT.builder()
-            .subType(SubType.SYMBOL)
+            .type(Type.SYMBOL)
             .name("Cherry")
-            .attributes(DATA)
+            .data(DATA)
         .build();
     
     assertThat(part_t).isEqualTo(expected_part_t);

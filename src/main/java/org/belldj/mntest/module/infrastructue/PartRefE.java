@@ -13,7 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import org.belldj.mntest.parts.infrastructure.PartE;
+import org.belldj.mntest.part.infrastructure.PartE;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity

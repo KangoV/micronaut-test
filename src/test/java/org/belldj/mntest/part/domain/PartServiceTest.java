@@ -1,18 +1,14 @@
-package org.belldj.mntest.parts.domain;
+package org.belldj.mntest.part.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
 import java.util.UUID;
-
 import javax.inject.Inject;
-
-import org.belldj.mntest.parts.domain.Part;
-import org.belldj.mntest.parts.domain.PartService;
-import org.belldj.mntest.parts.web.PartAddCommandT;
-import org.belldj.mntest.parts.web.PartRelT;
-import org.belldj.mntest.shared.SubType;
+import org.belldj.mntest.part.domain.Part;
+import org.belldj.mntest.part.domain.PartService;
+import org.belldj.mntest.part.web.PartAddCommandT;
+import org.belldj.mntest.part.web.PartRelT;
+import org.belldj.mntest.shared.Type;
 import org.junit.jupiter.api.Test;
-
 import io.micronaut.test.annotation.MicronautTest;
 
 @MicronautTest
@@ -26,15 +22,14 @@ class PartServiceTest {
   void testAdd() {
 
     var cmd = PartAddCommandT.builder()
-      .subType(SubType.SYMBOL)
+      .type(Type.SYMBOL)
       .name("main")
-      .attributes(
+      .data(
         """
         { "name": "main" }
-
         """)
       .addRelations(PartRelT.builder()
-        .subType(SubType.SYMBOL)
+        .type(Type.SYMBOL)
         .partId(UUID.randomUUID())
         .build())
       .build();
@@ -42,7 +37,7 @@ class PartServiceTest {
     Part part = partService.create(cmd);
 
     assertThat(part).isNotNull();
-    assertThat(part.getAttributes()).isEqualTo(
+    assertThat(part.getData()).isEqualTo(
       """
       { "name": "main" }
       """);

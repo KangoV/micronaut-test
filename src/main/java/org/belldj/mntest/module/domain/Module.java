@@ -8,8 +8,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
-import org.belldj.mntest.shared.SubType;
-import org.belldj.mntest.shared.Type;
 import com.fasterxml.uuid.Generators;
 
 public final class Module {

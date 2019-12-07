@@ -1,4 +1,4 @@
-package org.belldj.mntest.parts.infrastructure;
+package org.belldj.mntest.part.infrastructure;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import java.time.LocalDateTime;
@@ -6,10 +6,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import javax.inject.Inject;
-import org.belldj.mntest.parts.infrastructure.PartDao;
-import org.belldj.mntest.parts.infrastructure.PartE;
-import org.belldj.mntest.shared.SubType;
+import org.belldj.mntest.part.infrastructure.PartDao;
+import org.belldj.mntest.part.infrastructure.PartE;
 import org.belldj.mntest.shared.Type;
+import org.belldj.mntest.shared.Category;
 import org.junit.jupiter.api.Test;
 import io.micronaut.test.annotation.MicronautTest;
 
@@ -32,9 +32,9 @@ class PartDaoTest {
     p.setProperties(Map.of("K1","V1"));
     p.setElements(Set.of(UUID.randomUUID()));
     p.setName("Cherry");
-    p.setType(Type.ITEM);
-    p.setSubType(SubType.SYMBOL);
-    p.setAttributes(
+    p.setCategory(Category.ITEM);
+    p.setType(Type.SYMBOL);
+    p.setData(
       """
       {
         "code": "CHRY",

@@ -1,7 +1,7 @@
 /**
  *
  */
-package org.belldj.mntest.parts.domain;
+package org.belldj.mntest.part.domain;
 
 import org.belldj.mntest.util.Event;
 import org.immutables.value.Value;

@@ -1,10 +1,10 @@
-package org.belldj.mntest.parts.web;
+package org.belldj.mntest.part.web;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.validation.constraints.NotNull;
-import org.belldj.mntest.parts.domain.Part;
-import org.belldj.mntest.parts.domain.PartService;
+import org.belldj.mntest.part.domain.Part;
+import org.belldj.mntest.part.domain.PartService;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.NullValueMappingStrategy;
@@ -25,7 +25,7 @@ public class PartController {
 
   @Mapper(nullValueMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT)
   public interface PartControllerMapper {
-    @Mapping(target = "attributes", defaultValue = "{}")
+    @Mapping(target = "data", defaultValue = "{}")
     PartT map(Part part);
   }
 

@@ -1,4 +1,4 @@
-package org.belldj.mntest.parts.infrastructure;
+package org.belldj.mntest.part.infrastructure;
 
 import java.util.List;
 import java.util.UUID;

@@ -4,13 +4,10 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
 import javax.inject.Inject;
-
 import org.assertj.core.api.Assertions;
 import org.belldj.mntest.web.Transport;
 import org.junit.jupiter.api.Test;
-
 import io.micronaut.context.ApplicationContext;
 import io.micronaut.core.annotation.AnnotationValue;
 import io.micronaut.core.annotation.Introspected;

@@ -1,22 +1,24 @@
-package org.belldj.mntest.parts.domain;
+package org.belldj.mntest.part.domain;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
-import org.belldj.mntest.shared.SubType;
+import org.belldj.mntest.shared.Type;
 
 public interface PartApi {
 
   public interface PartAddCommand {
-    SubType getSubType();
+    Type getType();
     String getName();
-    String getAttributes();
+    String getData();
     Set<UUID> getElements();
     Set<PartRef> getRelations();
+    Map<String,String> properties();
   }
 
   public interface PartRef {
-    SubType getSubType();
+    Type getType();
     UUID getPartId();
   }
 

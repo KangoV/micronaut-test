@@ -1,4 +1,4 @@
-package org.belldj.mntest.parts.infrastructure;
+package org.belldj.mntest.part.infrastructure;
 
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -14,11 +14,9 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import org.belldj.mntest.module.infrastructue.PartRefE;
-import org.belldj.mntest.shared.SubType;
 import org.belldj.mntest.shared.Type;
+import org.belldj.mntest.shared.Category;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
@@ -29,13 +27,13 @@ public final class PartE {
   @Column(columnDefinition = "uuid", nullable = false, updatable = false)
   private UUID id;
 
+  @Column(name = "category", nullable = false, updatable = false)
+  @Enumerated(EnumType.STRING)
+  private Category category;
+
   @Column(name = "type", nullable = false, updatable = false)
   @Enumerated(EnumType.STRING)
   private Type type;
-
-  @Column(name = "subtype", nullable = false, updatable = false)
-  @Enumerated(EnumType.STRING)
-  private SubType subType;
 
   @Column(name = "name", nullable = true)
   private String name;
@@ -44,8 +42,8 @@ public final class PartE {
   @CreationTimestamp
   private LocalDateTime createdDate;
 
-  @Column(name = "attributes", nullable = false)
-  private String attributes;
+  @Column(name = "data", nullable = false)
+  private String data;
 
   @ElementCollection(fetch = FetchType.EAGER)
   @CollectionTable(name = "part_element", joinColumns = {@JoinColumn(name = "part_id", referencedColumnName = "id")})
@@ -70,12 +68,12 @@ public final class PartE {
     this.elements = elements;
   }
 
-  public String getAttributes() {
-    return attributes;
+  public String getData() {
+    return data;
   }
 
-  public void setAttributes(String attributes) {
-    this.attributes = attributes;
+  public void setData(String data) {
+    this.data = data;
   }
 
   public LocalDateTime getCreatedDate() {
@@ -110,12 +108,12 @@ public final class PartE {
     this.type = type;
   }
 
-  public SubType getSubType() {
-    return subType;
+  public Category getCategory() {
+    return category;
   }
 
-  public void setSubType(SubType subType) {
-    this.subType = subType;
+  public void setCategory(Category category) {
+    this.category = category;
   }
 
   public Map<String, String> getProperties() {

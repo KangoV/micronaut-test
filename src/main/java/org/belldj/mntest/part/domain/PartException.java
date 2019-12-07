@@ -1,4 +1,4 @@
-package org.belldj.mntest.parts.domain;
+package org.belldj.mntest.part.domain;
 
 public class PartException extends RuntimeException {
 

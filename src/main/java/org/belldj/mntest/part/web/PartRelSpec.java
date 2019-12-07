@@ -1,6 +1,6 @@
-package org.belldj.mntest.parts.web;
+package org.belldj.mntest.part.web;
 
-import org.belldj.mntest.parts.domain.PartApi;
+import org.belldj.mntest.part.domain.PartApi;
 import org.belldj.mntest.web.Transport;
 import org.immutables.value.Value;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;

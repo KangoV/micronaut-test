@@ -1,10 +1,10 @@
-package org.belldj.mntest.parts.web;
+package org.belldj.mntest.part.web;
 
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
-import org.belldj.mntest.shared.SubType;
 import org.belldj.mntest.shared.Type;
+import org.belldj.mntest.shared.Category;
 import org.belldj.mntest.util.JsonRawValueDeserializer;
 import org.belldj.mntest.web.Transport;
 import org.immutables.value.Value;
@@ -25,16 +25,16 @@ public interface PartSpec {
 
   UUID getId();
 
-  Type getType();
+  Category getCategory();
 
-  SubType getSubType();
+  Type getType();
 
   String getName();
 
   @JsonRawValue
   @Value.Default
   @JsonDeserialize(using = JsonRawValueDeserializer.class)
-  default String getAttributes() {
+  default String getData() {
     return "{}";
   }
 

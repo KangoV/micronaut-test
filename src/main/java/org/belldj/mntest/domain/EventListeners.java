@@ -2,11 +2,9 @@ package org.belldj.mntest.domain;
 
 import javax.inject.Singleton;
 import javax.transaction.Transactional;
-
-import org.belldj.mntest.parts.domain.PartCreatedEventSpec;
+import org.belldj.mntest.part.domain.PartCreatedEventSpec;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import io.micronaut.runtime.event.annotation.EventListener;
 
 @Singleton
